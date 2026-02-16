@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enabled – Connect your business with your customers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0f1a2e;       /* dark navy/blue-black */
+      color: #e0e0e0;
+      line-height: 1.4;
+    }
+
+    /* Header / Nav */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background-color: #f5f0e9;        /* light beige / cream */
+      color: #000;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      font-weight: 500;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo span {
+      margin-left: 8px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero section */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: #0f1a2e;
+      padding: 0 5vw;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 9rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      color: #d0e0ff;               /* light blue-gray */
+      letter-spacing: -0.02em;
+    }
+
+    .arrow-container {
+      margin-top: 4rem;
+      font-size: 3.5rem;
+      color: #55ff99;               /* bright green arrow */
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(20px); }
+    }
+
+    /* Services bar (fixed/sticky style at bottom of viewport in screenshot) */
+    .services-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background-color: #1a3c34;    /* dark teal/green */
+      color: #e0ffe0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 0 5vw;
+      font-size: 1.1rem;
+      font-weight: 500;
+      gap: 3rem;
+      z-index: 900;
+    }
+
+    .services-bar a {
+      color: #e0ffe0;
+      text-decoration: none;
+    }
+
+    .services-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .services-bar .special {
+      color: #aaffff;               /* slightly cyan to mimic possible typo styling */
+    }
+
+    /* Spacer so content isn't hidden under fixed bar (if you add more sections later) */
+    .page-spacer {
+      height: 160px;   /* room for header + services bar */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-spacer"></div>
+
+  <header>
+    <div class="logo">
+      <span>●●</span> <span>Enabled</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Health Check</a></li>
+        <li><a href="#">Services ▾</a></li>
+        <li><a href="#">Referrals</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>
+      Connect your business<br>with your customers
+    </h1>
+
+    <div class="arrow-container">↓</div>
+  </section>
+
+  <!-- Services bar (shows as bottom bar in your screenshot) -->
+  <div class="services-bar">
+    <a href="#" class="special">Content Strategy</a>
+    <a href="#">Project Management</a>
+    <a href="#">Logos & Visual Branding</a>
+    <a href="#">Socials</a>
+    <a href="#">Blogs & FAQs</a>
+    <a href="#">Direct Marketing</a>
+    <a href="#">Audio Advertising</a>
+    <a href="#">Websites</a>
+    <a href="#">Podcast</a>
+  </div>
+
+</body>
+</html>
