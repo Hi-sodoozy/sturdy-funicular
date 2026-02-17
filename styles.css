@@ -1081,6 +1081,17 @@ main {
   margin-top: 2rem;
 }
 
+/* Referrals page */
+
+.section-referrals-intro .page-intro-body {
+  margin-bottom: 0;
+}
+
+.section-referrals-form {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
 /* Footer */
 
 .site-footer {
