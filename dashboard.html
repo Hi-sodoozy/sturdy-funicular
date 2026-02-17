@@ -48,7 +48,17 @@
           <div class="dashboard-metrics">
             <article class="dashboard-metric">
               <h2 class="dashboard-metric-label">Number of Clients</h2>
-              <div class="dashboard-metric-value" id="clientsValue">0/10</div>
+              <div class="dashboard-metric-value-wrap">
+                <span class="dashboard-metric-value" id="clientsValue">0/10</span>
+                <button type="button" class="dashboard-metric-edit" id="clientsEdit" aria-label="Edit maximum" title="Edit maximum">
+                  <svg class="dashboard-edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+              </div>
+              <div class="dashboard-metric-edit-row dashboard-metric-edit-row-hidden" id="clientsEditRow">
+                <label for="clientsMaxInput" class="dashboard-metric-edit-label">Max:</label>
+                <input type="number" id="clientsMaxInput" class="dashboard-metric-max-input" min="1" max="500" value="10">
+                <button type="button" class="dashboard-metric-save" id="clientsSave">Save</button>
+              </div>
               <div class="dashboard-metric-controls">
                 <button type="button" class="dashboard-metric-btn dashboard-metric-down" id="clientsDown" aria-label="Decrease">↓</button>
                 <button type="button" class="dashboard-metric-btn dashboard-metric-up" id="clientsUp" aria-label="Increase">↑</button>
@@ -56,7 +66,17 @@
             </article>
             <article class="dashboard-metric">
               <h2 class="dashboard-metric-label">Business Assessment+</h2>
-              <div class="dashboard-metric-value" id="assessmentValue">0/10</div>
+              <div class="dashboard-metric-value-wrap">
+                <span class="dashboard-metric-value" id="assessmentValue">0/10</span>
+                <button type="button" class="dashboard-metric-edit" id="assessmentEdit" aria-label="Edit maximum" title="Edit maximum">
+                  <svg class="dashboard-edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+              </div>
+              <div class="dashboard-metric-edit-row dashboard-metric-edit-row-hidden" id="assessmentEditRow">
+                <label for="assessmentMaxInput" class="dashboard-metric-edit-label">Max:</label>
+                <input type="number" id="assessmentMaxInput" class="dashboard-metric-max-input" min="1" max="500" value="10">
+                <button type="button" class="dashboard-metric-save" id="assessmentSave">Save</button>
+              </div>
               <div class="dashboard-metric-controls">
                 <button type="button" class="dashboard-metric-btn dashboard-metric-down" id="assessmentDown" aria-label="Decrease">↓</button>
                 <button type="button" class="dashboard-metric-btn dashboard-metric-up" id="assessmentUp" aria-label="Increase">↑</button>
@@ -76,7 +96,11 @@
       var AUTH_KEY = 'enabled_dashboard_auth';
       var CLIENTS_KEY = 'enabled_dashboard_clients';
       var ASSESSMENT_KEY = 'enabled_dashboard_assessment';
+      var CLIENTS_MAX_KEY = 'enabled_dashboard_clients_max';
+      var ASSESSMENT_MAX_KEY = 'enabled_dashboard_assessment_max';
       var PASSWORD = 'enabled'; // Change this to your preferred password
+      var ABSOLUTE_MAX = 500;
+      var DEFAULT_MAX = 10;
 
       var gate = document.getElementById('dashboardGate');
       var content = document.getElementById('dashboardContent');
@@ -138,32 +162,80 @@
         localStorage.setItem(key, String(val));
       }
 
-      var MAX = 10;
-      var MIN = 0;
+      function getMax(key, def) {
+        var m = getStored(key, def);
+        return Math.max(1, Math.min(ABSOLUTE_MAX, isNaN(m) ? def : m));
+      }
 
       function initMetrics() {
-        var clients = getStored(CLIENTS_KEY, 0);
-        var assessment = getStored(ASSESSMENT_KEY, 0);
-
         var clientsValEl = document.getElementById('clientsValue');
         var assessmentValEl = document.getElementById('assessmentValue');
+        var clientsEditRow = document.getElementById('clientsEditRow');
+        var assessmentEditRow = document.getElementById('assessmentEditRow');
+        var clientsMaxInput = document.getElementById('clientsMaxInput');
+        var assessmentMaxInput = document.getElementById('assessmentMaxInput');
 
         function render() {
-          clientsValEl.textContent = getStored(CLIENTS_KEY, 0) + '/' + MAX;
-          assessmentValEl.textContent = getStored(ASSESSMENT_KEY, 0) + '/' + MAX;
+          var cMax = getMax(CLIENTS_MAX_KEY, DEFAULT_MAX);
+          var aMax = getMax(ASSESSMENT_MAX_KEY, DEFAULT_MAX);
+          var c = getStored(CLIENTS_KEY, 0);
+          var a = getStored(ASSESSMENT_KEY, 0);
+          if (c > cMax) { setStored(CLIENTS_KEY, cMax); c = cMax; }
+          if (a > aMax) { setStored(ASSESSMENT_KEY, aMax); a = aMax; }
+          clientsValEl.textContent = c + '/' + cMax;
+          assessmentValEl.textContent = a + '/' + aMax;
+          clientsMaxInput.value = cMax;
+          assessmentMaxInput.value = aMax;
         }
 
-        function adjust(key, delta) {
+        function adjust(key, maxKey, delta) {
+          var maxVal = getMax(maxKey, DEFAULT_MAX);
           var n = getStored(key, 0) + delta;
-          n = Math.max(MIN, Math.min(MAX, n));
+          n = Math.max(0, Math.min(maxVal, n));
           setStored(key, n);
           render();
         }
 
-        document.getElementById('clientsUp').onclick = function() { adjust(CLIENTS_KEY, 1); };
-        document.getElementById('clientsDown').onclick = function() { adjust(CLIENTS_KEY, -1); };
-        document.getElementById('assessmentUp').onclick = function() { adjust(ASSESSMENT_KEY, 1); };
-        document.getElementById('assessmentDown').onclick = function() { adjust(ASSESSMENT_KEY, -1); };
+        function saveMax(maxKey, inputEl, editRow) {
+          var v = parseInt(inputEl.value, 10);
+          if (isNaN(v) || v < 1 || v > ABSOLUTE_MAX) {
+            inputEl.focus();
+            return;
+          }
+          setStored(maxKey, v);
+          var current = getStored(maxKey === CLIENTS_MAX_KEY ? CLIENTS_KEY : ASSESSMENT_KEY, 0);
+          if (current > v) setStored(maxKey === CLIENTS_MAX_KEY ? CLIENTS_KEY : ASSESSMENT_KEY, v);
+          editRow.classList.add('dashboard-metric-edit-row-hidden');
+          render();
+        }
+
+        document.getElementById('clientsUp').onclick = function() { adjust(CLIENTS_KEY, CLIENTS_MAX_KEY, 1); };
+        document.getElementById('clientsDown').onclick = function() { adjust(CLIENTS_KEY, CLIENTS_MAX_KEY, -1); };
+        document.getElementById('assessmentUp').onclick = function() { adjust(ASSESSMENT_KEY, ASSESSMENT_MAX_KEY, 1); };
+        document.getElementById('assessmentDown').onclick = function() { adjust(ASSESSMENT_KEY, ASSESSMENT_MAX_KEY, -1); };
+
+        document.getElementById('clientsEdit').onclick = function() {
+          clientsEditRow.classList.remove('dashboard-metric-edit-row-hidden');
+          clientsMaxInput.focus();
+        };
+        document.getElementById('assessmentEdit').onclick = function() {
+          assessmentEditRow.classList.remove('dashboard-metric-edit-row-hidden');
+          assessmentMaxInput.focus();
+        };
+
+        document.getElementById('clientsSave').onclick = function() {
+          saveMax(CLIENTS_MAX_KEY, clientsMaxInput, clientsEditRow);
+        };
+        document.getElementById('assessmentSave').onclick = function() {
+          saveMax(ASSESSMENT_MAX_KEY, assessmentMaxInput, assessmentEditRow);
+        };
+
+        clientsMaxInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); saveMax(CLIENTS_MAX_KEY, clientsMaxInput, clientsEditRow); }
+        });
+        assessmentMaxInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); saveMax(ASSESSMENT_MAX_KEY, assessmentMaxInput, assessmentEditRow); }
+        });
 
         render();
       }

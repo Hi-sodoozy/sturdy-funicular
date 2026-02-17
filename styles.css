@@ -1215,12 +1215,94 @@ main {
   color: var(--text-dark);
 }
 
+.dashboard-metric-value-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
 .dashboard-metric-value {
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 700;
   font-size: 2rem;
   color: var(--text-dark);
+}
+
+.dashboard-metric-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.08);
+  color: rgba(15, 23, 42, 0.6);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dashboard-metric-edit:hover {
+  background: rgba(15, 23, 42, 0.14);
+  color: var(--text-dark);
+}
+
+.dashboard-edit-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.dashboard-metric-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.dashboard-metric-edit-row-hidden {
+  display: none;
+}
+
+.dashboard-metric-edit-label {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.dashboard-metric-max-input {
+  width: 4.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  background: #fff;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.dashboard-metric-max-input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.dashboard-metric-save {
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  background: var(--deep-teal);
+  color: #fff;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dashboard-metric-save:hover {
+  background: #0f3d3a;
 }
 
 .dashboard-metric-controls {
