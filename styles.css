@@ -972,6 +972,22 @@ main {
   border: 1px solid rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.casa-card-step {
+  display: inline-block;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--deep-teal);
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(19, 78, 74, 0.12);
+  border-radius: var(--radius-pill);
+  width: fit-content;
 }
 
 .casa-card-title {
@@ -994,38 +1010,75 @@ main {
   color: var(--text-light-primary);
 }
 
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+.benefits-heading {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+  margin: 0 0 2rem;
+  color: var(--text-light-primary);
+  text-align: left;
 }
 
-.benefit-card {
-  background-color: var(--sand);
-  color: var(--text-dark);
-  border-radius: 18px;
-  padding: 1.6rem 1.4rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 48rem;
 }
 
-.benefit-card-title {
+.benefit-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.75rem 0;
+}
+
+.benefit-row:first-child {
+  padding-top: 0;
+}
+
+.benefit-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.benefit-row-accent {
+  width: 4px;
+  flex-shrink: 0;
+  background: var(--lime);
+  border-radius: 2px;
+  margin-right: 1.5rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.benefit-row-content {
+  flex: 1;
+}
+
+.benefit-row-title {
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 600;
-  font-size: 1.25rem;
-  margin: 0 0 0.6rem;
-  color: var(--text-dark);
+  font-size: 1.35rem;
+  margin: 0 0 0.5rem;
+  color: var(--text-light-primary);
 }
 
-.benefit-card-body {
+.benefit-row-body {
   margin: 0;
-  font-size: 0.98rem;
-  color: rgba(15, 23, 42, 0.88);
-  line-height: 1.55;
+  font-size: 1rem;
+  color: var(--text-light-secondary);
+  line-height: 1.6;
 }
 
 .section-benefits-cta {
   margin-top: 2.5rem;
+}
+
+.section-benefits .section-benefits-cta {
+  margin-top: 2rem;
 }
 
 /* Footer */
@@ -1076,9 +1129,6 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .benefits-grid {
-    grid-template-columns: 1fr;
-  }
 
   .section {
     padding-inline: 1.25rem;
