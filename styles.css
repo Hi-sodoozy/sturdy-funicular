@@ -904,6 +904,130 @@ main {
   font-size: 0.95rem;
 }
 
+/* Business Assessment page */
+
+.page-intro {
+  background-color: var(--midnight);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.page-intro-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  margin: 0 0 0.5rem;
+  color: var(--text-light-primary);
+}
+
+.page-intro-subtitle {
+  margin: 0 0 1.5rem;
+  font-size: 1.15rem;
+  color: var(--text-light-secondary);
+}
+
+.page-intro-body {
+  max-width: 42rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-light-primary);
+}
+
+.page-intro-body p {
+  margin: 0 0 1rem;
+}
+
+.page-intro-body p:last-child {
+  margin-bottom: 0;
+}
+
+.page-intro-cta {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.section-casa {
+  background-color: var(--deep-teal);
+  color: var(--text-light-primary);
+}
+
+.section-casa-subtitle {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  color: var(--text-light-secondary);
+}
+
+.casa-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.casa-card {
+  background-color: var(--sand);
+  color: var(--text-dark);
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.casa-card-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0 0 0.6rem;
+  color: var(--text-dark);
+}
+
+.casa-card-body {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(15, 23, 42, 0.88);
+  line-height: 1.55;
+}
+
+.section-benefits {
+  background-color: var(--midnight);
+  color: var(--text-light-primary);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.benefit-card {
+  background-color: var(--sand);
+  color: var(--text-dark);
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.benefit-card-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0 0 0.6rem;
+  color: var(--text-dark);
+}
+
+.benefit-card-body {
+  margin: 0;
+  font-size: 0.98rem;
+  color: rgba(15, 23, 42, 0.88);
+  line-height: 1.55;
+}
+
+.section-benefits-cta {
+  margin-top: 2.5rem;
+}
+
 /* Footer */
 
 .site-footer {
@@ -945,6 +1069,14 @@ main {
   }
 
   .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .casa-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
     grid-template-columns: 1fr;
   }
 
