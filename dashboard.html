@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard – Enabled</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="index.html#hero" class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div class="brand-text-primary">Enabled</div>
+            <div class="brand-text-secondary">Dashboard</div>
+          </div>
+        </a>
+        <a href="index.html" class="dashboard-back">Back to site</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Password gate (shown when not authenticated) -->
+      <section class="section dashboard-gate" id="dashboardGate">
+        <div class="section-inner dashboard-gate-inner">
+          <h1 class="dashboard-gate-title">Dashboard</h1>
+          <p class="dashboard-gate-text">Enter the password to continue.</p>
+          <form class="dashboard-gate-form" id="gateForm">
+            <input type="password" id="dashboardPassword" class="dashboard-gate-input" placeholder="Password" autocomplete="current-password" required>
+            <button type="submit" class="btn-primary">Enter</button>
+          </form>
+          <p class="dashboard-gate-error" id="gateError" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- Dashboard (shown when authenticated) -->
+      <section class="section dashboard-content" id="dashboardContent" hidden>
+        <div class="section-inner">
+          <h1 class="dashboard-heading">Dashboard</h1>
+          <div class="dashboard-metrics">
+            <article class="dashboard-metric">
+              <h2 class="dashboard-metric-label">Number of Clients</h2>
+              <div class="dashboard-metric-value" id="clientsValue">0/10</div>
+              <div class="dashboard-metric-controls">
+                <button type="button" class="dashboard-metric-btn dashboard-metric-down" id="clientsDown" aria-label="Decrease">↓</button>
+                <button type="button" class="dashboard-metric-btn dashboard-metric-up" id="clientsUp" aria-label="Increase">↑</button>
+              </div>
+            </article>
+            <article class="dashboard-metric">
+              <h2 class="dashboard-metric-label">Business Assessment+</h2>
+              <div class="dashboard-metric-value" id="assessmentValue">0/10</div>
+              <div class="dashboard-metric-controls">
+                <button type="button" class="dashboard-metric-btn dashboard-metric-down" id="assessmentDown" aria-label="Decrease">↓</button>
+                <button type="button" class="dashboard-metric-btn dashboard-metric-up" id="assessmentUp" aria-label="Increase">↑</button>
+              </div>
+            </article>
+          </div>
+          <p class="dashboard-logout">
+            <button type="button" class="btn-secondary" id="logoutBtn">Log out</button>
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function() {
+      var AUTH_KEY = 'enabled_dashboard_auth';
+      var CLIENTS_KEY = 'enabled_dashboard_clients';
+      var ASSESSMENT_KEY = 'enabled_dashboard_assessment';
+      var PASSWORD = 'enabled'; // Change this to your preferred password
+
+      var gate = document.getElementById('dashboardGate');
+      var content = document.getElementById('dashboardContent');
+      var form = document.getElementById('gateForm');
+      var input = document.getElementById('dashboardPassword');
+      var errorEl = document.getElementById('gateError');
+
+      function isAuthenticated() {
+        return sessionStorage.getItem(AUTH_KEY) === '1';
+      }
+
+      function setAuthenticated(ok) {
+        if (ok) sessionStorage.setItem(AUTH_KEY, '1');
+        else sessionStorage.removeItem(AUTH_KEY);
+      }
+
+      function showGate() {
+        gate.hidden = false;
+        content.hidden = true;
+      }
+
+      function showDashboard() {
+        gate.hidden = true;
+        content.hidden = false;
+        errorEl.textContent = '';
+        input.value = '';
+        initMetrics();
+      }
+
+      if (isAuthenticated()) {
+        showDashboard();
+      } else {
+        showGate();
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var pwd = input.value.trim();
+        if (pwd === PASSWORD) {
+          setAuthenticated(true);
+          showDashboard();
+        } else {
+          errorEl.textContent = 'Incorrect password. Try again.';
+          input.focus();
+        }
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        setAuthenticated(false);
+        showGate();
+      });
+
+      function getStored(key, def) {
+        var v = localStorage.getItem(key);
+        return v !== null ? parseInt(v, 10) : def;
+      }
+
+      function setStored(key, val) {
+        localStorage.setItem(key, String(val));
+      }
+
+      var MAX = 10;
+      var MIN = 0;
+
+      function initMetrics() {
+        var clients = getStored(CLIENTS_KEY, 0);
+        var assessment = getStored(ASSESSMENT_KEY, 0);
+
+        var clientsValEl = document.getElementById('clientsValue');
+        var assessmentValEl = document.getElementById('assessmentValue');
+
+        function render() {
+          clientsValEl.textContent = getStored(CLIENTS_KEY, 0) + '/' + MAX;
+          assessmentValEl.textContent = getStored(ASSESSMENT_KEY, 0) + '/' + MAX;
+        }
+
+        function adjust(key, delta) {
+          var n = getStored(key, 0) + delta;
+          n = Math.max(MIN, Math.min(MAX, n));
+          setStored(key, n);
+          render();
+        }
+
+        document.getElementById('clientsUp').onclick = function() { adjust(CLIENTS_KEY, 1); };
+        document.getElementById('clientsDown').onclick = function() { adjust(CLIENTS_KEY, -1); };
+        document.getElementById('assessmentUp').onclick = function() { adjust(ASSESSMENT_KEY, 1); };
+        document.getElementById('assessmentDown').onclick = function() { adjust(ASSESSMENT_KEY, -1); };
+
+        render();
+      }
+    })();
+  </script>
+</body>
+</html>
