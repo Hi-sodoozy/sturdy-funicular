@@ -986,6 +986,139 @@ main {
   color: var(--lime-hover);
 }
 
+/* Website service page */
+.section-website-hero {
+  padding-bottom: 3rem;
+}
+
+.website-intro-body {
+  max-width: 42rem;
+}
+
+.website-intro-body p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-light-primary);
+}
+
+.section-website-options {
+  background-color: var(--deep-teal);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.website-section-heading {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin: 0 0 2rem;
+  color: var(--text-light-primary);
+  letter-spacing: 0.02em;
+}
+
+.website-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.website-option {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.website-option:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.website-option-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 0 0 0.75rem;
+  color: var(--lime);
+}
+
+.website-option-desc {
+  margin: 0 0 1.75rem;
+  max-width: 42rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.95);
+}
+
+.website-work {
+  margin-top: 1.5rem;
+}
+
+.website-work-heading {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light-secondary);
+}
+
+.website-cases {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .website-cases {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.website-case {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.25rem 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.website-case-logo-wrap {
+  margin-bottom: 1rem;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.website-case-logo {
+  max-width: 160px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.website-case-spiel {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.section-website-cta {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  background-color: var(--midnight);
+  text-align: center;
+}
+
+.website-cta-text {
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  color: var(--text-light-primary);
+}
+
+.section-website-cta .btn-primary {
+  margin: 0;
+}
+
 .section-service {
   padding-top: 2rem;
   padding-bottom: 2rem;
