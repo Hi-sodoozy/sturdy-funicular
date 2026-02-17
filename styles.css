@@ -959,13 +959,31 @@ main {
   letter-spacing: 0.02em;
 }
 
-/* Per-service CTA */
+/* Per-service CTA – outline style (subtle) */
 .service-cta-wrap {
   margin-top: 1.5rem;
 }
 
 .btn-service-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(163, 230, 53, 0.7);
+  background: transparent;
+  color: var(--lime);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.btn-service-cta:hover {
+  border-color: var(--lime);
+  background: rgba(163, 230, 53, 0.12);
+  color: var(--lime-hover);
 }
 
 .section-service {
