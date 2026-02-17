@@ -1078,8 +1078,13 @@ main {
   text-underline-offset: 4px;
 }
 
-.website-case-client:hover {
-  color: var(--lime);
+/* Client name as link (e.g. to client website) – use blue, not green */
+a.website-case-client {
+  color: var(--blue);
+}
+
+a.website-case-client:hover {
+  color: var(--blue-hover);
   text-decoration: underline;
 }
 
