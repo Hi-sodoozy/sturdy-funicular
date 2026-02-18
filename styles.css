@@ -741,30 +741,30 @@ main {
   padding-top: 1rem;
 }
 
-/* Subtle outline only – not green */
+/* Match "Explore services" – dark fill, light outline, light text */
 .btn-need {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.7rem 1.3rem;
-  min-height: 2.5rem;
+  padding: 0.8rem 1.5rem;
+  min-height: 2.75rem;
   box-sizing: border-box;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(15, 23, 42, 0.22);
-  background: transparent;
-  color: var(--text-dark);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: var(--midnight);
+  color: var(--text-light-primary);
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 1;
   cursor: pointer;
   text-decoration: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
 }
 
 .btn-need:hover {
-  border-color: rgba(15, 23, 42, 0.45);
-  background: rgba(15, 23, 42, 0.04);
+  border-color: var(--blue);
+  background: rgba(15, 23, 42, 0.92);
 }
 
 .need-disclaimer {
