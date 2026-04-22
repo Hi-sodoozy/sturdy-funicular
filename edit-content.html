@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit website content – Iain Duguid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-light.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="dashboard.html" class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div class="brand-text-primary">Iain Duguid</div>
+            <div class="brand-text-secondary">Edit content</div>
+          </div>
+        </a>
+        <a href="dashboard.html" class="dashboard-back">Back to dashboard</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section dashboard-content edit-content-section">
+        <div class="section-inner">
+          <h1 class="dashboard-heading">Edit website content</h1>
+          <p class="edit-content-intro">Select a page, change the copy below and press <strong>Publish</strong> to update the live site. This page is only visible when you are logged in to the dashboard.</p>
+
+          <div class="edit-content-page-wrap">
+            <label for="editContentPageSelect" class="edit-content-page-label">Page to edit</label>
+            <select id="editContentPageSelect" class="edit-content-page-select" aria-label="Select page to edit">
+              <!-- Options filled by JS from CONTENT_PAGES -->
+            </select>
+          </div>
+
+          <form class="edit-content-form" id="editContentForm">
+            <div id="editContentFormFields"><!-- Fields built by JS --></div>
+            <div class="edit-content-actions">
+              <button type="submit" class="btn-primary">Publish</button>
+              <a href="#" id="editContentPreviewLink" class="btn-secondary" target="_blank" rel="noopener">Preview page</a>
+            </div>
+            <p class="dashboard-blog-message" id="editContentMessage" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="content-registry.js"></script>
+  <script>
+  (function() {
+    var AUTH_KEY = 'enabled_dashboard_auth';
+    var STORAGE_KEY = 'iainduguid_site_content';
+
+    if (sessionStorage.getItem(AUTH_KEY) !== '1') {
+      window.location.replace('dashboard.html');
+      return;
+    }
+
+    var pageSelect = document.getElementById('editContentPageSelect');
+    var formFields = document.getElementById('editContentFormFields');
+    var previewLink = document.getElementById('editContentPreviewLink');
+    var messageEl = document.getElementById('editContentMessage');
+
+    function getStored() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) { return {}; }
+    }
+
+    function getCurrentPageId() {
+      return pageSelect && pageSelect.value ? pageSelect.value : (CONTENT_PAGES[0] && CONTENT_PAGES[0].id);
+    }
+
+    function buildFormForPage(pageId) {
+      if (!formFields || !CONTENT_FIELDS || !CONTENT_FIELDS[pageId]) {
+        formFields.innerHTML = '<p class="edit-content-no-fields">No editable fields for this page.</p>';
+        return;
+      }
+      var stored = getStored();
+      var prefix = pageId + '.';
+      var html = '';
+      CONTENT_FIELDS[pageId].forEach(function(field) {
+        var fullId = pageId + '.' + field.id;
+        var value = stored[fullId] !== undefined ? stored[fullId] : (field.default || '');
+        var rows = field.rows || 2;
+        var labelEsc = escapeHtml(field.label);
+        if (field.type === 'html') {
+          html += '<div class="form-row"><label for="' + escapeAttr(fullId) + '">' + labelEsc + ' (HTML)</label><textarea id="' + escapeAttr(fullId) + '" name="' + escapeAttr(fullId) + '" rows="' + rows + '" placeholder="' + escapeAttr(field.default || '') + '">' + escapeHtml(value) + '</textarea></div>';
+        } else {
+          html += '<div class="form-row"><label for="' + escapeAttr(fullId) + '">' + labelEsc + '</label><input type="text" id="' + escapeAttr(fullId) + '" name="' + escapeAttr(fullId) + '" value="' + escapeHtml(value) + '" placeholder="' + escapeAttr(field.default || '') + '" /></div>';
+        }
+      });
+      formFields.innerHTML = html;
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      var div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+    function escapeAttr(s) {
+      if (s == null) return '';
+      return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function updatePreviewLink() {
+      var pageId = getCurrentPageId();
+      var page = CONTENT_PAGES.filter(function(p) { return p.id === pageId; })[0];
+      if (previewLink && page) {
+        previewLink.href = page.file;
+        previewLink.textContent = 'Preview ' + (page.label || page.file);
+      }
+    }
+
+    function populatePageSelect() {
+      if (!pageSelect || !CONTENT_PAGES) return;
+      pageSelect.innerHTML = CONTENT_PAGES.map(function(p) {
+        return '<option value="' + escapeAttr(p.id) + '">' + escapeHtml(p.label) + '</option>';
+      }).join('');
+      updatePreviewLink();
+    }
+
+    if (pageSelect) {
+      pageSelect.addEventListener('change', function() {
+        buildFormForPage(getCurrentPageId());
+        updatePreviewLink();
+        if (messageEl) messageEl.textContent = '';
+      });
+    }
+
+    document.getElementById('editContentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var pageId = getCurrentPageId();
+      var prefix = pageId + '.';
+      var data = getStored();
+      var fields = CONTENT_FIELDS[pageId];
+      if (!fields) return;
+      fields.forEach(function(field) {
+        var fullId = pageId + '.' + field.id;
+        var el = document.getElementById(fullId);
+        if (el) {
+          var val = el.value.trim();
+          if (val) data[fullId] = val;
+          else delete data[fullId];
+        }
+      });
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        if (messageEl) {
+          messageEl.textContent = 'Published! The ' + (CONTENT_PAGES.filter(function(p) { return p.id === pageId; })[0].label) + ' will show your changes.';
+          messageEl.style.color = 'var(--deep-teal)';
+        }
+      } catch (err) {
+        if (messageEl) {
+          messageEl.textContent = 'Could not save. Try again.';
+          messageEl.style.color = '#f87171';
+        }
+      }
+    });
+
+    populatePageSelect();
+    buildFormForPage(getCurrentPageId());
+  })();
+  </script>
+</body>
+</html>

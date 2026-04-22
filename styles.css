@@ -1,22 +1,36 @@
-/* styles.css – Enabled */
+/* styles.css – Enabled (fun / studio theme) */
 
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap");
 
 :root {
-  --midnight: #0f172a;
-  --deep-teal: #134e4a;
-  --sand: #e7e5df;
-  --text-light-primary: #f1f5f9;
-  --text-light-secondary: #c7d2fe;
-  --text-dark: #0f172a;
-  --lime: #a3e635;
-  --lime-hover: #84cc16;
-  --blue: #3b82f6;
-  --blue-hover: #2563eb;
-  --radius-lg: 16px;
+  --midnight: #0f0a05;
+  --warm-dark: #1c1510;
+  --amber: #f59e0b;
+  --amber-bright: #fbbf24;
+  --amber-dark: #d97706;
+  --deep-teal: #0d9488;
+  --teal-soft: #14b8a6;
+  --teal-pale: #ccfbf1;
+  --sand: #fef3c7;
+  --cream: #fffbeb;
+  --fuchsia: #c026d3;
+  --fuchsia-hover: #a21caf;
+  --text-light-primary: #fefce8;
+  --text-light-secondary: #fde68a;
+  --text-dark: #1c1917;
+  --text-muted: #57534e;
+  --lime: #fbbf24;
+  --lime-hover: #f59e0b;
+  --blue: #6366f1;
+  --blue-hover: #4f46e5;
+  --radius-lg: 24px;
   --radius-pill: 999px;
   --space-section-y: 5rem;
   --max-width: 1120px;
+  --shadow-soft: 0 8px 30px rgba(28, 21, 16, 0.08);
+  --shadow-card: 0 12px 40px rgba(28, 21, 16, 0.12);
+  --font-head: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "DM Sans", "IBM Plex Sans", system-ui, sans-serif;
 }
 
 * {
@@ -27,9 +41,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--midnight);
-  color: var(--text-light-primary);
-  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(180deg, var(--cream) 0%, #fef9c3 50%, var(--cream) 100%);
+  background-attachment: fixed;
+  color: var(--text-dark);
+  font-family: var(--font-body);
   scroll-behavior: smooth;
 }
 
@@ -51,7 +66,7 @@ img {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--midnight);
+  background-color: var(--cream);
 }
 
 main {
@@ -72,9 +87,10 @@ main {
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(255, 251, 235, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 3px solid var(--amber);
+  box-shadow: var(--shadow-soft);
 }
 
 .site-header-inner {
@@ -91,14 +107,15 @@ main {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: var(--font-head);
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 11px;
-  background: var(--lime);
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--amber) 0%, var(--amber-dark) 100%);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
 }
 
 .brand-text-primary {
@@ -109,7 +126,7 @@ main {
 .brand-text-secondary {
   font-weight: 500;
   font-size: 0.8rem;
-  color: var(--text-light-secondary);
+  color: var(--text-muted);
 }
 
 .nav {
@@ -122,23 +139,23 @@ main {
 }
 
 .nav a {
-  color: var(--text-light-primary);
+  color: var(--text-dark);
   padding-bottom: 0.1rem;
   border-bottom: 2px solid transparent;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .nav a:hover {
-  border-color: var(--blue);
-  color: var(--text-light-secondary);
+  border-color: var(--deep-teal);
+  color: var(--teal-soft);
 }
 
 .nav-cta {
   padding: 0.5rem 1.2rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(241, 245, 249, 0.5);
-  background: rgba(15, 23, 42, 0.95);
-  color: var(--text-light-primary);
+  border: 1px solid var(--deep-teal);
+  background: transparent;
+  color: var(--deep-teal);
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -146,9 +163,9 @@ main {
 }
 
 .nav-cta:hover {
-  border-color: var(--blue);
-  background: rgba(15, 23, 42, 0.8);
-  color: var(--text-light-secondary);
+  border-color: var(--teal-soft);
+  background: var(--teal-pale);
+  color: var(--deep-teal);
 }
 
 .nav-dashboard-dot {
@@ -156,13 +173,14 @@ main {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(241, 245, 249, 0.35);
+  background: var(--lime);
   margin-left: 0.5rem;
-  transition: background 0.2s ease, transform 0.2s ease;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .nav-dashboard-dot:hover {
-  background: rgba(241, 245, 249, 0.7);
+  opacity: 1;
   transform: scale(1.2);
 }
 
@@ -183,10 +201,10 @@ main {
   margin-top: 0.25rem;
   min-width: 200px;
   padding: 0.5rem 0;
-  background: rgba(15, 23, 42, 0.98);
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  background: var(--cream);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
@@ -208,10 +226,12 @@ main {
   font-size: 0.9rem;
   font-weight: 500;
   border-bottom: none;
+  color: var(--text-dark);
 }
 
 .nav-dropdown-panel a:hover {
-  background: rgba(30, 64, 175, 0.2);
+  background: var(--teal-pale);
+  color: var(--deep-teal);
 }
 
 .nav-toggle-input {
@@ -235,7 +255,7 @@ main {
   position: absolute;
   width: 16px;
   height: 2px;
-  background: var(--text-light-primary);
+  background: var(--text-dark);
   border-radius: 999px;
   transition: transform 0.18s ease;
 }
@@ -264,7 +284,7 @@ main {
 
 /* Hero */
 .hero {
-  background-color: var(--midnight);
+  background: linear-gradient(180deg, var(--teal-pale) 0%, var(--cream) 100%);
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
@@ -287,6 +307,7 @@ main {
   font-size: clamp(2.2rem, 5vw, 3.6rem);
   letter-spacing: -0.03em;
   line-height: 0.85;
+  color: var(--text-dark);
 }
 
 .hero-title-line1,
@@ -334,9 +355,9 @@ main {
   justify-content: center;
   padding: 0.8rem 1.5rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(148, 163, 184, 0.6);
+  border: 1px solid var(--deep-teal);
   background: transparent;
-  color: var(--text-light-primary);
+  color: var(--deep-teal);
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -346,8 +367,8 @@ main {
 }
 
 .btn-secondary:hover {
-  border-color: var(--blue);
-  background: rgba(15, 23, 42, 0.8);
+  border-color: var(--teal-soft);
+  background: var(--teal-pale);
 }
 
 .hero-right {
@@ -355,23 +376,23 @@ main {
 }
 
 .hero-panel {
-  background: rgba(15, 23, 42, 0.6);
-  border-radius: 20px;
+  background: #fff;
+  border-radius: var(--radius-lg);
   padding: 1.6rem 1.4rem;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-card);
 }
 
 .hero-panel-body {
   margin: 0;
   font-size: 1rem;
-  color: rgba(226, 232, 240, 0.95);
+  color: var(--text-dark);
   line-height: 1.6;
 }
 
 /* Ticker */
 .ticker {
-  background-color: var(--deep-teal);
-  border-block: 1px solid rgba(15, 23, 42, 0.3);
+  background: linear-gradient(90deg, var(--teal-soft) 0%, var(--deep-teal) 100%);
   padding-block: 0.9rem;
   overflow: hidden;
 }
@@ -554,8 +575,8 @@ main {
 
 /* How can Enabled help? */
 .section-help {
-  background-color: var(--midnight);
-  color: var(--text-light-primary);
+  background-color: var(--cream);
+  color: var(--text-dark);
 }
 
 .section-help-header {
@@ -569,6 +590,7 @@ main {
   font-size: clamp(1.9rem, 3vw, 2.4rem);
   letter-spacing: -0.03em;
   margin: 0;
+  color: var(--text-dark);
 }
 
 .cards-grid {
@@ -578,11 +600,12 @@ main {
 }
 
 .card {
-  background-color: var(--sand);
+  background: #fff;
   color: var(--text-dark);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 1.8rem 1.6rem 1.6rem;
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -659,8 +682,8 @@ main {
 
 /* What Do I Need? */
 .section-need {
-  background-color: var(--deep-teal);
-  color: var(--text-light-primary);
+  background: linear-gradient(180deg, var(--teal-pale) 0%, rgba(232, 245, 244, 0.5) 100%);
+  color: var(--text-dark);
 }
 
 .section-need-header {
@@ -674,12 +697,13 @@ main {
   font-size: clamp(1.9rem, 3vw, 2.4rem);
   letter-spacing: -0.03em;
   margin: 0 0 0.5rem;
+  color: var(--text-dark);
 }
 
 .section-need-subtitle {
   margin: 0;
   font-size: 1.05rem;
-  color: var(--text-light-secondary);
+  color: var(--text-muted);
   max-width: 36rem;
   margin-left: auto;
   margin-right: auto;
@@ -696,11 +720,12 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: var(--sand);
+  background: #fff;
   color: var(--text-dark);
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   padding: 1.6rem 1.4rem;
   border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .need-card-title {
@@ -741,7 +766,7 @@ main {
   padding-top: 1rem;
 }
 
-/* Match "Explore services" – dark fill, light outline, light text */
+/* Need buttons (if re-added) – teal outline on light theme */
 .btn-need {
   display: inline-flex;
   align-items: center;
@@ -750,9 +775,9 @@ main {
   min-height: 2.75rem;
   box-sizing: border-box;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  background: var(--midnight);
-  color: var(--text-light-primary);
+  border: 1px solid var(--deep-teal);
+  background: transparent;
+  color: var(--deep-teal);
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -763,14 +788,14 @@ main {
 }
 
 .btn-need:hover {
-  border-color: var(--blue);
-  background: rgba(15, 23, 42, 0.92);
+  border-color: var(--teal-soft);
+  background: var(--teal-pale);
 }
 
 .need-disclaimer {
   margin: 0 0 2rem;
   font-size: 0.95rem;
-  color: var(--text-light-secondary);
+  color: var(--text-muted);
   text-align: center;
   max-width: 42rem;
   margin-left: auto;
@@ -780,15 +805,16 @@ main {
 .need-cta-block {
   text-align: center;
   padding: 2rem;
-  background: rgba(15, 23, 42, 0.4);
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .need-cta-text {
   margin: 0 0 1rem;
   font-size: 1.05rem;
-  color: var(--text-light-primary);
+  color: var(--text-dark);
 }
 
 .need-cta-block .btn-primary {
@@ -797,7 +823,7 @@ main {
 
 /* Contact */
 .section-contact {
-  background-color: var(--midnight);
+  background-color: var(--cream);
   padding-bottom: 4rem;
 }
 
@@ -806,6 +832,7 @@ main {
   font-weight: 600;
   font-size: 1.8rem;
   margin: 0 0 1.5rem;
+  color: var(--text-dark);
 }
 
 .contact-form {
@@ -822,7 +849,7 @@ main {
   font-weight: 500;
   font-size: 0.9rem;
   margin-bottom: 0.35rem;
-  color: var(--text-light-primary);
+  color: var(--text-dark);
 }
 
 .required {
@@ -834,9 +861,9 @@ main {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: rgba(15, 23, 42, 0.6);
-  color: var(--text-light-primary);
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: #fff;
+  color: var(--text-dark);
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   font-size: 1rem;
   transition: border-color 0.2s ease;
@@ -867,11 +894,11 @@ main {
 
 /* Footer */
 .site-footer {
-  background-color: var(--midnight);
-  border-top: 1px solid rgba(30, 64, 175, 0.3);
+  background-color: var(--deep-teal);
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
   padding: 1.6rem 1.5rem 2rem;
   font-size: 0.8rem;
-  color: rgba(148, 163, 184, 0.9);
+  color: rgba(226, 232, 240, 0.9);
 }
 
 .site-footer-inner {
@@ -1603,9 +1630,10 @@ a.website-case-client:hover {
     position: fixed;
     inset: 3.3rem 1.25rem auto 1.25rem;
     padding: 1rem 1.1rem;
-    border-radius: 16px;
-    background: rgba(15, 23, 42, 0.98);
-    border: 1px solid rgba(148, 163, 184, 0.5);
+    border-radius: var(--radius-lg);
+    background: var(--cream);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: var(--shadow-card);
     flex-direction: column;
     align-items: flex-start;
     gap: 0.8rem;
